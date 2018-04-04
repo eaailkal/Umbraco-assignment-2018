@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<div class="row m-b-lg app-price-plans>
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+        <h3 class="m-t-0">@CurrentPage.Name</h3>
+        
+        <div class="row">
+    
+        <div class="col-sm-3"></div>
+    
+        <div class="col-sm-7">
+
+        @Umbraco.RenderMacro("loginForm")
+        
+        </div>
+        
+        </div>
+    
+    </div>
+</div>

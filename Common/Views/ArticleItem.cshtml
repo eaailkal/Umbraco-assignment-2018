@@ -1,0 +1,25 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+<div class="row">
+    
+
+    <div class="col-sm-5">
+        
+        @Umbraco.RenderMacro("sidebar_articles")
+        
+    </div>
+    
+    <div class="col-sm-7">
+    
+<h2>@Umbraco.Field("articleTitle")</h2>
+
+<p>@Umbraco.Field("articleContent")</p>
+
+    </div>
+
+</div>

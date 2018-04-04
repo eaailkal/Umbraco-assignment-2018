@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ArticlesOverview> 
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+<section>
+
+<h3>@Umbraco.Field("articlesTitle")</h3>
+
+<p>@Umbraco.Field("articlesBodyText")</p>
+
+@Umbraco.RenderMacro("listArticles")
+
+</section>

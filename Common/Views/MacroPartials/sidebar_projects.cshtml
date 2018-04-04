@@ -1,0 +1,36 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using Umbraco.Web
+
+@{ var root = Model.Content.Site(); }
+@{ var selection = Model.Content.Site().FirstChild("projectsOverview").Children.Where("UmbracoNavHide == false").Where(x => x.IsVisible()).ToArray(); }
+
+@if (selection.Length > 0)
+{
+<ul>
+    @foreach (IPublishedContent item in selection)
+    {
+    var isProtected = umbraco.library.IsProtected(item.Id, item.Path);
+    var loginAccess = umbraco.library.IsProtected(item.Id, item.Path) && umbraco.library.HasAccess(item.Id, item.Path);
+
+    if (!isProtected || loginAccess)
+    {
+    <li>
+
+        <a href="@item.Url"> @item.Name </a>
+
+    </li>
+    }
+    else
+    {
+
+    <li class="@(item.IsAncestorOrSelf(Model.Content) ? " current" : null)">
+        <a href="@item.Url">@item.Name</a>
+    </li>
+    }
+    }
+</ul>
+}
+
+
+
+

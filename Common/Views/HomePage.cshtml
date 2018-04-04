@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+@{ 
+
+// <img src="@Umbraco.TypedMedia(Model.Content.GetPropertyValue<string>("imageCrop")).Url" 
+
+}
+
+<div class="row m-b-lg" id="latest">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+        <h6 class="text-muted text-uppercase">Latest and greatest</h6>
+        <h3 class="m-t-0 m-b">Our projects</h3>
+    </div>
+</div>
+
+<div class="row">
+    @Umbraco.RenderMacro("newestProjects2")
+</div> 
+

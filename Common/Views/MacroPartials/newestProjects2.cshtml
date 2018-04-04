@@ -1,0 +1,40 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using Umbraco.Web
+
+@{
+	var selection = Model.Content.Site().FirstChild("projectsOverview").Children()
+	                    // If you create a checkbox property on a document type with an alias umbracoNaviHide 
+	                    // then the value of this property is used by the IsVisible() extension method when filtering.
+						.Where(x => x.IsVisible())
+						.Where(x => x.Name.Contains("i"))
+						// Get only completed projects
+						.Where(x => x.HasValue("projectStatus") && Umbraco.GetPreValueAsString(
+                        x.GetPropertyValue<int>("projectStatus")) == "Completed")
+						.OrderByDescending(x => x.CreateDate) // Newest projects first
+						.Take(3)  // Number of projects to show 
+						.ToArray();
+						
+						// https://our.umbraco.org/documentation/reference/querying/ipublishedcontent/Collections 
+
+foreach (var menuItem in selection)
+    {
+    
+        <div class="col-md-4">
+        <div class="panel panel-bold app-price-plans">
+            <div class="panel-body p-b-lg">
+
+            <a class="project-link" href="@menuItem.Url">
+                <h3 class="m-y-0">@menuItem.Name</h3>
+                <hr>
+                <p>@Umbraco.Truncate(menuItem.GetPropertyValue<string>("projectDescription"), 99)</p>
+            </a>
+            
+            </div>
+        </div>
+        </div>
+
+    }
+    
+}
+
+

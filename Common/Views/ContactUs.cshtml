@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<div class="block block-secondary app-iphone-block">
+    <div class="container">
+        <div class="row app-align-center">
+
+            <div class="col-sm-5 hidden-xs">
+                <img class="app-iphone" src="../content/img/startup-3.jpg" style="width: 100%;">
+            </div>
+
+            <div class="col-sm-7">
+                <h3 class="m-t-0">@CurrentPage.Name</h3>
+                <p class="lead m-b-md">Get in touch with us.</p>
+                <div class="row hidden-sm">
+
+                    @Html.Action("Index", "ContactFormSurface")
+
+                </div>
+                <div class="col-sm-7">
+
+                    <br /><br />
+
+                </div>
+                
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+  

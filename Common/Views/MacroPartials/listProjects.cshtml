@@ -1,0 +1,75 @@
+﻿
+@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using Umbraco.Web
+
+
+@{ var root = Model.Content.Site(); 
+
+       var selection = Model.Content.Site().FirstChild("projectsOverview").Children()
+	   // If you create a checkbox property on a document type with an alias umbracoNaviHide 
+	   // then the value of this property is used by the IsVisible() extension method when filtering.
+	    .Where(x => x.IsVisible())
+	    // Hide navigation nodes for users that hasn’t access 
+	    Where("UmbracoNavHide == false")
+		// Get only completed projects
+		// .Where(x => x.HasValue("projectStatus") && Umbraco.GetPreValueAsString(x.GetPropertyValue<int>("projectStatus")) == "Completed")
+		.OrderByDescending(x => x.CreateDate) // Newest projects first
+		.ToArray();
+						
+}
+
+
+@if (selection.Length > 0)
+{
+    <ul>
+        @foreach (IPublishedContent item in selection)
+        {
+            var isProtected = umbraco.library.IsProtected(item.Id, item.Path);
+            var loginAccess = umbraco.library.IsProtected(item.Id, item.Path) && umbraco.library.HasAccess(item.Id, item.Path);
+
+            if (!isProtected || loginAccess)
+            {
+            
+            <div class="col-md-6">
+            <div class="panel panel-bold app-price-plans">
+            <div class="panel-body p-b-lg">
+                
+                <h3>
+                    <a href="@item.Url"> @item.Name </a> <!-- test -->
+                </h3>
+                
+                <div class="light-font text-white short-description">
+                    <p class="text-justify">@Umbraco.Truncate(item.GetPropertyValue<string>("projectDescription"), 199)</p>
+                    <a class="project-link text-dark" href="@item.Url">Read More...</a>
+                </div>
+            
+            </div>
+            </div>
+            </div>
+        
+            }
+            
+            else
+            {
+            
+            <div class="col-md-6">
+            <div class="panel panel-bold app-price-plans">
+            <div class="panel-body p-b-lg">    
+               <h3>
+                    <a href="@item.Url">@item.Name</a>
+               </h3>
+                
+                <div class="light-font text-white short-description">
+                    <p class="text-justify">@Umbraco.Truncate(item.GetPropertyValue<string>("projectDescription"), 199)</p>
+                    <a class="project-link text-dark" href="@item.Url">Read More...</a>
+                </div>
+            
+            </div>
+            </div>
+            </div>
+            }
+        }
+    </ul>
+}
+
+
